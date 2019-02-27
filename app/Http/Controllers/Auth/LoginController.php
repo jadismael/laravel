@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\UserLogin;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -34,6 +38,13 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')
+             ->except('logout');
     }
+
+    public function authenticated()
+    {
+        UserLogin::create(['user_id' => Auth::user()->id, 'date' =>Carbon::now()->toDateString()]);
+    }
+
 }
