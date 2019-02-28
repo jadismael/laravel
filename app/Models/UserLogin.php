@@ -11,7 +11,7 @@ class UserLogin extends BaseModel
     protected $table = 'user_login';
     protected $primaryKey = 'user_login_id';
     protected $fillable = [
-        'user_id','time','date'
+        'user_id','time','date','login_type'
     ];
 
     public function user()
@@ -19,4 +19,5 @@ class UserLogin extends BaseModel
         return $this->belongsTo(User::class, 'user_id','id')
                     ->with('groups');
     }
+
 }

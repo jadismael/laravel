@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserLogin;
+
+use App\Services\UsersService;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -14,6 +16,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->uService = new UsersService();
     }
 
     /**
@@ -21,13 +24,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $aLogins = UserLogin::with('user')
-                                    ->orderBy('date', 'ASC')
-                                    ->get()->toArray();
-
-        return view('home', compact('aLogins'));
+        $aLogins = $this->uService->index($request->input());
+        $aUsers = $this->uService->getUsers();
+        $aGroups = $this->uService->getUserGroups();
+        return view('home', compact('aLogins', 'aUsers', 'aGroups'));
     }
 
 }

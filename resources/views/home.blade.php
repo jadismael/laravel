@@ -14,38 +14,71 @@
                             </div>
                         @endif
 
-                        <div class="panel-heading">List of Logins</div>
+
+                        <h3>Filter by Date</h3>
+                        <ul class="list-group">
+
+                            <il>
+                                <form action="{{ route('home') }}" method="get">
+                                    <input type="date" id="start" name="date"
+                                           value="2019-02-28">
+                                    <input type="submit" value="Submit">
+                                </form>
+                            </il>
+
+                            <ul class="list-group">
+                                <h4>Preset Dates</h4>
+                                <il>
+                                    <a href="{{ route('home') }}?this_week=1">Current Week</a>
+                                </il>
+                                <il>
+                                    <a href="{{ route('home') }}?this_year=1">Current Year</a>
+                                </il>
+                                <il>
+                                    <a href="{{ route('home') }}?last_three_month=1">Last 3 months</a>
+                                </il>
+                            </ul>
+                        </ul>
 
 
+                        <h3> Filter by User</h3>
+                        <ul class="list-group">
+                            @foreach($aUsers as $aUser)
+                                <il>
+                                    <a href="{{ route('home') }}?user_id={{$aUser->id}}"> {{$aUser->name}}</a>
+                                </il>
+
+                            @endforeach
+                        </ul>
+                        <h3> Filter by Group</h3>
+                        <ul class="list-group">
+                            @foreach($aGroups as $aGroup)
+                                <il>
+                                    <a href="{{ route('home') }}?group_id={{$aGroup->group_id}}"> {{$aGroup->name}}</a>
+                                </il>
+
+                            @endforeach
+                        </ul>
                         <!-- Table -->
+                            <div class="panel-heading"><h2>List of Logins</h2></div>
                         <table class="table">
                             <tr>
                                 <td>Name</td>
                                 <td>UserID</td>
+                                <td>Action</td>
                                 <td>Time</td>
-                                <td>Group(s)</td>
+                                <td>Group</td>
                             </tr>
 
                             @foreach($aLogins as $aLogin)
-
                                 <tr>
-                                    <td> {{$aLogin['user']['name']}}</td>
-                                    <td> {{$aLogin['user_id']}}</td>
-                                    <td> {{$aLogin['time']}}</td>
-
-                                  {{--  <td> {{$aLogin->user['groups']}}</td>--}}
-                                    @php
-
-
-       var_dump($aLogin['user']['groups']);
-                                    @endphp
-                      {{--            @foreach($aLogin['user']['groups'] as $group)
-                                          @php
-
-                                              var_dump($group);
-
-                                          @endphp
-                                      @endforeach--}}
+                                    <td> {{$aLogin->user['name']}}</td>
+                                    <td> {{$aLogin->user_id}}</td>
+                                    <td>{{$aLogin->login_type}}</td>
+                                    <td> {{$aLogin->time}}</td>
+                                    <td>
+                                        {{$aLogin->user['groups']['groupname']['name']}}
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
