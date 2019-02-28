@@ -1,5 +1,5 @@
 CREATE TABLE `users` (
-  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_unicode_ci',
   `email` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_unicode_ci',
   `email_verified_at` TIMESTAMP NULL DEFAULT NULL,
