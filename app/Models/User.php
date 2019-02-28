@@ -19,6 +19,11 @@ class User extends BaseModel
 
     public function groups()
     {
-        return $this->hasMany(UserGroup::class,'user_id','id')->with('groupName');
+        return $this->BelongsTo(UserGroup::class,'id','user_id')->with('groupName');
+    }
+
+    public function getGroupIDAttribute()
+    {
+        return '2';
     }
 }

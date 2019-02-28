@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+Route::get('/users-logins', ['uses' => 'UsersController@index']);
+Route::get('/users-groups', ['uses' => 'UsersController@getUserGroups']);
+Route::get('/users', ['uses' => 'UsersController@getUsers']);

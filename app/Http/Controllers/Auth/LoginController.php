@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserLogin;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -45,6 +46,13 @@ class LoginController extends Controller
     public function authenticated()
     {
         UserLogin::create(['user_id' => Auth::user()->id, 'date' =>Carbon::now()->toDateString()]);
+    }
+
+    public function logout(Request $request) {
+        UserLogin::create(['user_id' => Auth::user()->id, 'date' =>Carbon::now()->toDateString(),'login_type'=>'logout']);
+
+        Auth::logout();
+        return redirect('/login');
     }
 
 }
