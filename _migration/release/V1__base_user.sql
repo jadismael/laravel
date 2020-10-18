@@ -1,6 +1,8 @@
 CREATE TABLE `users` (
   `id` INT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+  `first_name` varchar(256) NOT NULL,
+  `last_name` varchar(256) NOT NULL,
+  `phone_number` varchar(50) DEFAULT NULL,
   `email` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_unicode_ci',
   `email_verified_at` TIMESTAMP NULL DEFAULT NULL,
   `password` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_unicode_ci',

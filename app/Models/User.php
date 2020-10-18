@@ -3,27 +3,81 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Notifications\Notifiable;
 
-class User extends BaseModel
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
 {
+    use Notifiable;
 
-    public $timestamps = false;
-    protected $table = 'users';
-    protected $primaryKey = 'id';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name',
+        'last_name',
+        'phone_number',
+        'email',
+        'password',
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public function groups()
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public static function validator(array $data)
     {
-        return $this->BelongsTo(UserGroup::class,'id','user_id')->with('groupName');
+        return Validator::make($data, [
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'max:30'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+    public static function create(array $data){
+
+        $data ['password'] = Hash::make($data['password']);
+       return static::query()->create($data);
     }
 
-    public function getGroupIDAttribute()
+    public function address()
     {
-        return '2';
+        return $this->hasOne(UserAddress::class);
+    }
+
+    public function paymentInformation()
+    {
+        return $this->hasOne(UserPaymentInformation::class);
+    }
+
+    public function paymentData()
+    {
+        return $this->hasOne(UserPaymentData::class);
     }
 }
