@@ -4,7 +4,9 @@
 namespace App\Models;
 
 
-class UserLogin extends BaseModel
+use Illuminate\Database\Eloquent\Model;
+
+class UserLogin extends Model
 {
 
     public $timestamps = false;

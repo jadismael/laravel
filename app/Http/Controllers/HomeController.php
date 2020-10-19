@@ -7,7 +7,6 @@ use App\Models\UserAddress;
 use App\Models\UserPaymentInformation;
 use App\Services\Api\DemoApiService;
 use App\Services\GuzzleService;
-use App\Services\UsersService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
@@ -25,13 +24,12 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application view based on which info was already collected.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request, DemoApiService $demoApiService, GuzzleService $guzzleService)
+    public function index(Request $request, DemoApiService $demoApiService)
     {
-
 
         $user = Auth::user();
         if (!$user->address) {
@@ -44,7 +42,7 @@ class HomeController extends Controller
         }
         if (!$user->paymentData) {
             try {
-                return $demoApiService->sendPaymentInfo($guzzleService, $user);
+                return $demoApiService->sendPaymentInfo( $user);
             } catch (Exception $e) {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }

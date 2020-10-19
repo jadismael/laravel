@@ -25,7 +25,13 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
+    CONST RULES = [
+        'first_name' => ['required', 'string', 'max:255'],
+        'last_name' => ['required', 'string', 'max:255'],
+        'phone_number' => ['required', 'max:30'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -52,13 +58,7 @@ class User extends Authenticatable
      */
     public static function validator(array $data)
     {
-        return Validator::make($data, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', 'max:30'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        return Validator::make($data,self::RULES);
     }
     public static function create(array $data){
 

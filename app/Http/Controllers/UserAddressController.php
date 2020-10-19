@@ -12,15 +12,14 @@ class UserAddressController extends Controller
 
 
     /**
-     * Create a new user instance after a valid registration.
+     * Create a new user address after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\Models\UserAddress
+     * @param  Request  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
 
     protected function create(Request $request)
     {
-
       UserAddress::create($request->input());
         return redirect()->route('home');
     }

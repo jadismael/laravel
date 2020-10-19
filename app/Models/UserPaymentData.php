@@ -2,26 +2,15 @@
 
 namespace App\Models;
 
-
-use Illuminate\Support\Facades\Auth;
-
 class UserPaymentData extends BaseModel
 {
 
-
     CONST FIELDS = ['iban', 'owner'];
+    CONST PAYMENT_DATA_ID='payment_data_id';
     protected $fillable = [
         'user_id',
         'payment_data_id',
     ];
-
-    public static function create(array $data)
-    {
-        $userId = Auth::id();
-        $data ['user_id'] = $userId;
-        return static::query()->create($data);
-    }
-
 
 
 }
