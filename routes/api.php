@@ -13,7 +13,3 @@ use Illuminate\Http\Request;
 |
 */
 
-
-Route::get('/users-logins', ['uses' => 'UsersController@index']);
-Route::get('/users-groups', ['uses' => 'UsersController@getUserGroups']);
-Route::get('/users', ['uses' => 'UsersController@getUsers']);

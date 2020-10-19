@@ -18,15 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/address', 'UserAddressController@create')->name('registerAddress');
+Route::post('/paymentInformation', 'UserPaymentInformationController@create')->name('registerPaymentInformation');
+Route::post('/submitPaymentInformation', 'UserPaymentDataController@create')->name('submitPaymentInformation');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
